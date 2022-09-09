@@ -132,6 +132,10 @@ function install() {
 
   logger_info "Copying ALCPlugFix binary and launchd files"
   logger_info "You might be prompted to enter your password during the installation since the file will be installed under your /Library/LaunchDaemons directory"
+	if [ ! -d "/usr/local/bin/ALCPlugFix" ]; then
+		echo "'/usr/local/bin/ALCPlugFix' not found, creating one instead..."
+		sudo mkdir -p -m 775 /usr/local/bin/ALCPlugFix || logger_error
+	fi
   sudo cp "$OUTDir_TMP/ALCPlugFix-Swift" /usr/local/bin/ALCPlugFix || copyErr
   sudo cp "$OUTDir_TMP/com.black-dragon74.ALCPlugFix.plist" /Library/LaunchDaemons/com.black-dragon74.ALCPlugFix.plist || copyErr
 
